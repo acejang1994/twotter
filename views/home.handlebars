@@ -1,0 +1,31 @@
+
+<nav>
+	<!-- <button class = 'logout'> Login</button> -->
+	<a href = "/login" class = "tologin"> Login</a>
+</nav>
+
+<div id = "twotelist"> 
+	<h2>Twotes</h2>
+	<form id = "addingTwote" action = "/addingTwote" method = "POST">
+		<input id = "twoteInput"  type = "text">
+		<input type = "submit" action = "submit" value = "Add Twote">
+	</form>
+
+	{{#each twote}}
+	<div id = {{authorId}}>
+		{{message}} <br>
+		{{author}}
+		<button id = {{authorId}}> Delete </button>
+	</div>
+	{{/each}}
+</div>
+
+
+<div id = "userList">
+	<h2>Users </h2>
+	{{#each twoteUser}}
+		<div>
+			{{userName}}
+		</div> <br>
+	{{/each}}
+</div>
