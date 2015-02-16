@@ -1,5 +1,3 @@
-
-
 // loggin in users
 $(".login").submit(function(event){
 	event.preventDefault();
@@ -14,7 +12,11 @@ $(".login").submit(function(event){
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
-      	// $("#userList").
+      	$newDiv = $(".author").clone().first();
+      	$newDiv.attr("id", data._id);
+      	$newDiv.text(data.author);
+
+      	$("#authorsList").append($newDiv);
 	});
 
 });
@@ -28,11 +30,18 @@ $("#addingTwote").submit(function(event){
 
 	$.post("/addingTwote", {
 		"twote": twote,
-		"authorID": "whoever"
 	})
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
+      	// $newDiv = $(".twotes").clone().first();
+      	// $newDiv.attr("name", data._id);
+      	// // $newDiv.text(data.author);
+      	// debugger;
+
+      	// $("#twoteslist").append($newDiv);
+
+
 	});
 
 
@@ -40,9 +49,18 @@ $("#addingTwote").submit(function(event){
 
 $(".removeTwote").click(function(event){
 	event.preventDefault();
+	authorId = $(this).attr("id");
 	$.post("/removingTwote")
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
 	});
+});
+
+$(".author").click(function(event){
+	event.preventDefault();
+	authorId = $(this).attr("id");
+	// alert(authorId);
+
+	// $('[name='+authorId+']');
 });

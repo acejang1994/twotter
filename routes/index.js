@@ -55,7 +55,6 @@ index.loginUser = function(req, res){
 			{
 				"_id": req.session._id,
 				"author": req.session.name
-
 			}
 		);
 		

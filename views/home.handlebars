@@ -8,7 +8,7 @@
 
 </nav>
 
-<div id = "twotelist"> 
+<div id = "twoteslist"> 
 	<h2>Twotes</h2>
 	<form id = "addingTwote" action = "/addingTwote" method = "POST">
 		<input id = "twoteInput"  type = "text">
@@ -16,7 +16,7 @@
 	</form>
 
 	{{#each twote}}
-	<div id = {{authorId}}>
+	<div class = "twotes" name = "{{authorId}}">
 		{{message}} <br>
 		- {{author}}
 		<button id = {{authorId}} class = removeTwote> Delete </button>
@@ -25,11 +25,13 @@
 </div>
 
 
-<div id = "userList">
+<div id = "authorsList">
 	<h2>Users </h2>
+
 	{{#each twoteUser}}
-		<div>
+		<div class = "author" id = "{{this._id}}">
 			{{userName}}
 		</div> <br>
 	{{/each}}
+
 </div>
