@@ -12,11 +12,23 @@ $(".login").submit(function(event){
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
+      	var flag = false;
       	$newDiv = $(".author").clone().first();
       	$newDiv.attr("id", data._id);
       	$newDiv.text(data.author);
+      	// debugger;
+      	$.each($(".author"), function(index, value){
+      		// console.log("value", value);
+      		// debugger;
+      		if(value.innerText == data.author){
+      			flag = true;
+      		}
 
-      	$("#authorsList").append($newDiv);
+      	});
+      	if(!flag){
+      		$("#authorsList").append($newDiv);
+		}
+      	
 	});
 
 });
@@ -34,12 +46,12 @@ $("#addingTwote").submit(function(event){
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
-      	// $newDiv = $(".twotes").clone().first();
-      	// $newDiv.attr("name", data._id);
-      	// // $newDiv.text(data.author);
+      	$newDiv = $(".twotes").clone().first();
+      	$newDiv.attr("name", data._id);
+      	$newDiv.find("div.authorNameInTwote").html("- " +data.author)
+      	$newDiv.find("span").html(data.message);
       	// debugger;
-
-      	// $("#twoteslist").append($newDiv);
+      	$("#twoteslist").append($newDiv);
 
 
 	});
@@ -47,20 +59,31 @@ $("#addingTwote").submit(function(event){
 
 });
 
-$(".removeTwote").click(function(event){
-	event.preventDefault();
-	authorId = $(this).attr("id");
-	$.post("/removingTwote")
-	.done(function(data, status){
-		console.log("data", data);
-      	console.log("status", status);
+
+
+var removeTwote = function(){
+	$("button.removeTwote").click(function(event){
+		event.preventDefault();
+		var $twote = $(event.target);
+		var twoteId = $twote.attr('id')
+		$.post("/removingTwote", {
+			"removeId": twoteId
+		}).done(function(data){
+			$twote.parent().remove();
+			console.log("removed!!")
+			debugger;
+		});
+		// debugger;
 	});
-});
+}
+removeTwote();
+
 
 $(".author").click(function(event){
 	event.preventDefault();
 	authorId = $(this).attr("id");
-	// alert(authorId);
+	alert(authorId);
+	
 
 	// $('[name='+authorId+']');
 });

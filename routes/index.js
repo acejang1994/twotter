@@ -12,7 +12,6 @@ index.home = function(req, res){
 
 	// checking if user exists
 	// if(req.session._id == null){
-		// alert("yo");
 		Twote.find({}, function(err, data){
 		if(err){
 			console.log("error in looking for users", err);
@@ -39,28 +38,41 @@ index.home = function(req, res){
 index.loginUser = function(req, res){
 	userName = req.body.name;
 	
-	console.log("username2", userName);
+	console.log("username1", userName);
 
-	var newTwoteUser = new TwoteUser({
-		userName: userName
-	});
-	newTwoteUser.save(function(err){
-		if(err){
-			console.log("Login did not work",err);
-		}
-
-		req.session._id = newTwoteUser._id;
-		req.session.name = newTwoteUser.userName;
-		res.json(
-			{
+	TwoteUser.find({"userName": userName}, function(err, twoteUser){
+		console.log("result of findby", twoteUser);
+		// console.log("inside twote", twoteUser.length);
+		if (twoteUser.length == 0){
+			var newTwoteUser = new TwoteUser({
+				userName: userName
+			});
+			newTwoteUser.save(function(err){
+				if(err){
+					console.log("Login did not work",err);
+				}
+			
+				req.session.name = newTwoteUser.userName;
+				req.session._id = newTwoteUser._id;
+				res.json({
+					"_id": req.session._id,
+					"author": req.session.name
+				});
+		
+			});
+		}else{
+			console.log("returning user", twoteUser);
+			req.session.name = twoteUser[0].userName;
+			req.session._id = twoteUser[0]._id;
+			console.log("re user name", req.session.name);
+			console.log("re user _id", req.session._id);
+			res.json({
 				"_id": req.session._id,
 				"author": req.session.name
-			}
-		);
-		
+			});
+		}
+
 	});
-	
-	// return res.redirect("/");
 };
 
 index.addTwote = function(req, res){
@@ -87,19 +99,25 @@ index.addTwote = function(req, res){
 
 index.removeTwote = function(req, res){
 	var authorId = req.session._id;
+	console.log("in removing");
+	console.log("authorId", authorId);
 
-	Twote.findById(req.body.tweetId, function(err, twote) {
-		if (err)
-			console.error('Error ', err);
+	Twote.findById(req.body.removeId, function(err, twote) {
+		if (err){
+			console.error('Error in finding the tweet', err);
+		}
+		console.log("twote", twote);
 
 		if (twote.authorId == authorId) {
 			twote.remove(function(err) {
-				if (err)
+				if (err){
 					console.error('Error in removing twote ', err);
+				}
 
-				console.log("removed");
+				return console.log("removed");
 			});
 		}
+		return
 	});
 
 };
@@ -113,4 +131,6 @@ var formatDate = function(date){
     return (curr_date + "-" + curr_month + "-" + curr_year + " "+ hours + ":"+ minutes);
 };
 
+
 module.exports = index;
+
