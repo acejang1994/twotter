@@ -28,6 +28,8 @@ $(".login").submit(function(event){
       	if(!flag){
       		$("#authorsList").append($newDiv);
 		}
+		$(".login").hide();
+		$("#logout").show();
       	
 	});
 
@@ -53,9 +55,20 @@ $("#addingTwote").submit(function(event){
       	// debugger;
       	$("#twoteslist").append($newDiv);
 
-
 	});
+});
 
+$("#logout").click(function(event){
+	event.preventDefault();
+	alert("Logout");
+	$.post("/logout").done(function(err){
+		if(err){
+			console.log(err);
+		}
+		$(".login").show();
+		$("#logout").hide();
+	})
+	
 
 });
 
@@ -83,7 +96,7 @@ $(".author").click(function(event){
 	event.preventDefault();
 	authorId = $(this).attr("id");
 	alert(authorId);
-	
+
 
 	// $('[name='+authorId+']');
 });
