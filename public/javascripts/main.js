@@ -14,6 +14,7 @@ $(".login").submit(function(event){
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
+      	// $("#userList").
 	});
 
 });
@@ -23,9 +24,10 @@ $(".login").submit(function(event){
 $("#addingTwote").submit(function(event){
 	event.preventDefault();
 	twote = $("#twoteInput").val();
+	console.log("twote", twote);
 
 	$.post("/addingTwote", {
-		"twote":twote,
+		"twote": twote,
 		"authorID": "whoever"
 	})
 	.done(function(data, status){
@@ -34,4 +36,13 @@ $("#addingTwote").submit(function(event){
 	});
 
 
-})
+});
+
+$(".removeTwote").click(function(event){
+	event.preventDefault();
+	$.post("/removingTwote")
+	.done(function(data, status){
+		console.log("data", data);
+      	console.log("status", status);
+	});
+});
