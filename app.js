@@ -35,8 +35,8 @@ app.post('/addingTwote', index.addTwote);
 app.post('/removingTwote', index.removeTwote);
 app.post('/logout', index.logout);
 
-mongoose.connect('mongodb://localhost/test');
-// mongoose.connect(mongoURI);
+// mongoose.connect('mongodb://localhost/test');
+mongoose.connect(mongoURI);
 
 app.listen(PORT, function() {
   console.log("Application running on port:", PORT);
