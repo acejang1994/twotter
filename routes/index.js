@@ -15,14 +15,11 @@ index.home = function(req, res){
 		if(err1){
 			console.log("error in looking for users", err1);
 		}
-		// if(req.session._id == null){
-		// 	res.render("login");
-		// }
 		Twote.find({}, null, {sort: {postTime: -1}},  function(err2, data2){
 			if(err2){
 				console.log("error in looking for users", err2);
 			}
-			
+
 			res.render("home", {
 				twoteUser: data1,
 				twote: data2
