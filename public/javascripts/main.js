@@ -5,7 +5,6 @@ $(".login").submit(function(event){
 
 	var username = $("#username").val();
 
-
 	$.post("/loginUser", {
 		"name":username
 	})
@@ -53,7 +52,7 @@ $("#addingTwote").submit(function(event){
       	$newDiv.find("div.authorNameInTwote").html("- " +data.author)
       	$newDiv.find("span").html(data.message);
       	// debugger;
-      	$("#twoteslist").append($newDiv);
+      	$("#twoteslist").prepend($newDiv);
 
 	});
 });
@@ -68,8 +67,6 @@ $("#logout").click(function(event){
 		$(".login").show();
 		$("#logout").hide();
 	})
-	
-
 });
 
 

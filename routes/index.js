@@ -11,29 +11,61 @@ index.home = function(req, res){
 	console.log("author",req.session.name);
 
 	// checking if user exists
-	// if(req.session._id == null){
-		Twote.find({}, function(err, data){
-		if(err){
-			console.log("error in looking for users", err);
+	TwoteUser.find({}, null, {sort: {author: -1}},function(err1, data1){
+		if(err1){
+			console.log("error in looking for users", err1);
 		}
-		twotes = data;
-		})
-
-		TwoteUser.find({}, function(err, data){
-			if(err){
-				console.log("error in looking for users", err);
+		// if(req.session._id == null){
+		// 	res.render("login");
+		// }
+		Twote.find({}, null, {sort: {postTime: -1}},  function(err2, data2){
+			if(err2){
+				console.log("error in looking for users", err2);
 			}
+			
 			res.render("home", {
-				twoteUser: data,
-				twote: twotes
+				twoteUser: data1,
+				twote: data2
 			});
-		})	
-	// }
-
-	
-	
-
+		});
+	})	
 };
+
+// var home = function (req, res) {
+//     schema.Person.find({}, null, {sort: {name: 1}}, function (err1, people_) {
+//         if (err1) {
+//             res.status(500).json({error: "Could not load users. \n" + err1})
+//             return;
+//         }
+
+//         if (!req.user) {
+//             var pageData = {
+//                   people: people_
+//                 , twotes: []
+//                 , author: req.user.username
+//             };
+//             res.render('login', pageData);
+//         }
+//         schema.Twote.find({}, null, {sort: {timestamp: -1}}, function (err2, twotes_) {
+//             if (err2) {
+//                 res.status(500).json({error: "Could not load twotes. \n" + err2})
+//                 return;
+//             }
+//             var pageData = {
+//                   people: people_
+//                 , twotes: twotes_
+//                 , author: req.user.username
+//             };
+
+//             res.render('index', pageData);
+//         });
+//     });
+
+
+index.login = function(req, res){
+	res.render("login");
+}
+
 
 index.loginUser = function(req, res){
 	userName = req.body.name;

@@ -27,6 +27,7 @@ var PORT = process.env.PORT || 3000;
 var mongoURI = process.env.MONGOURI;
 
 app.get('/', index.home);
+app.get('/login', index.login);
 
 app.post('/loginUser', index.loginUser);
 app.post('/addingTwote', index.addTwote);
