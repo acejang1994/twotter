@@ -71,7 +71,6 @@ index.loginUser = function(req, res){
 				"author": req.session.name
 			});
 		}
-
 	});
 };
 
