@@ -1,21 +1,45 @@
 body {
-	font-family: 'Times New Roman', serif;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
 }
 div#twoteslist{
  
     float:left;
     padding:20px;
+    
   
+}
+div.twotes{
+	padding: 5px;
+}
+div.authorNameInTwote{
+	padding: 5px;
+}
+removeTwote
+
+button.removeTwote{
+	padding: 5px;
 }
 
 div#authorsList{
  
-    float:right;
+ 
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 6px ;
+    background-color: #FFFFFF;
+    text-align: center;
     padding:20px;
+    float: right;
+    width: 25%;
   
 }
 
 nav#navbar{
-	padding:20px;	
+	background-color:#CCFFCC;
+    color:black;
+    text-align:left;
+    padding:5px;
+}
+div.author{
+	color: black;
 }

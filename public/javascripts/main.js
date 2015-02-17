@@ -11,6 +11,7 @@ $(".login").submit(function(event){
 	.done(function(data, status){
 		console.log("data", data);
       	console.log("status", status);
+      	window.location.replace('/home');
       	var flag = false;
       	$newDiv = $(".author").clone().first();
       	$newDiv.attr("id", data._id);
@@ -22,17 +23,24 @@ $(".login").submit(function(event){
       		if(value.innerText == data.author){
       			flag = true;
       		}
-
       	});
       	if(!flag){
       		$("#authorsList").append($newDiv);
 		}
-		$(".login").hide();
-		$("#logout").show();
+		// $(".login").hide();
+		// $("#logout").show();
       	
 	});
 
 });
+
+// $("button#toLogin").click(function(event){
+// 	event.preventDefault();
+// 	$.get("/login").done(function(data){
+// 		alert("inside login");
+// 	})
+// 	alert("to login");
+// });
 
 // adding twotes
 
@@ -60,12 +68,15 @@ $("#addingTwote").submit(function(event){
 $("#logout").click(function(event){
 	event.preventDefault();
 	alert("Logout");
-	$.post("/logout").done(function(err){
+	$.post("/logout").done(function(err, data){
 		if(err){
 			console.log(err);
 		}
-		$(".login").show();
-		$("#logout").hide();
+		if (data.redirect){
+        window.location.replace(data.redirect);
+    	}
+		// $(".login").show();
+		// $("#logout").hide();
 	})
 });
 
@@ -93,7 +104,11 @@ $(".author").click(function(event){
 	event.preventDefault();
 	authorId = $(this).attr("id");
 	alert(authorId);
+	 // $(this).css({'color':'red'});
+	 $(this).css('background-color', 'gray');
+	 $.each($('[name='+authorId+']'),function(index, value){
+	 	$(value).css('background-color','red');
 
-
-	// $('[name='+authorId+']');
+	 });
+	 // debugger;
 });
