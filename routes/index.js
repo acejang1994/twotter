@@ -28,36 +28,6 @@ index.home = function(req, res){
 	})	
 };
 
-// var home = function (req, res) {
-//     schema.Person.find({}, null, {sort: {name: 1}}, function (err1, people_) {
-//         if (err1) {
-//             res.status(500).json({error: "Could not load users. \n" + err1})
-//             return;
-//         }
-
-//         if (!req.user) {
-//             var pageData = {
-//                   people: people_
-//                 , twotes: []
-//                 , author: req.user.username
-//             };
-//             res.render('login', pageData);
-//         }
-//         schema.Twote.find({}, null, {sort: {timestamp: -1}}, function (err2, twotes_) {
-//             if (err2) {
-//                 res.status(500).json({error: "Could not load twotes. \n" + err2})
-//                 return;
-//             }
-//             var pageData = {
-//                   people: people_
-//                 , twotes: twotes_
-//                 , author: req.user.username
-//             };
-
-//             res.render('index', pageData);
-//         });
-//     });
-
 
 index.login = function(req, res){
 	res.render("login");
