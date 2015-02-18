@@ -43,4 +43,3 @@ app.post('/logout', index.logout);
 app.listen(PORT, function() {
   console.log("Application running on port:", PORT);
 });
-
