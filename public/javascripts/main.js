@@ -67,17 +67,18 @@ addingTwote();
 $("#logout").click(function(event){
 	event.preventDefault();
 	// alert("Logout");
-	$.post("/logout").done(function(err, data){
-		if(err){
-			console.log("error", err);
-		}
-		console.log("redirect",data.redirect);
-		// if (data.redirect){
-        window.location.replace("/login");
-    	// }
-		// $(".login").show();
-		// $("#logout").hide();
-	})
+	$.get("/logout");
+	// $.post("/logout").done(function(err, data){
+	// 	if(err){
+	// 		console.log("error", err);
+	// 	}
+	// 	console.log("redirect",data.redirect);
+	// 	// if (data.redirect){
+ //        window.location.replace("/login");
+ //    	// }
+	// 	// $(".login").show();
+	// 	// $("#logout").hide();
+	// })
 });
 
 

@@ -7,31 +7,38 @@ var index = {};
 
 index.home = function(req, res){
 	
-	console.log("user id",req.session._id);
-	console.log("author",req.session.name);
-
+	// console.log("user id",req.session._id);
+	// console.log("author",req.session.name);
+	console.log("facebook user", req.session.passport.user)
+	// console.log(req.session.passport.name);
 	// checking if user exists
-	if(!req.session._id){
-		res.redirect("login");
-	}
-	else{
-		TwoteUser.find({}, null, {sort: {author: -1}},function(err1, data1){
-			if(err1){
-				console.log("error in looking for users", err1);
-			}
-			Twote.find({}, null, {sort: {postTime: -1}},  function(err2, data2){
-				if(err2){
-					console.log("error in looking for users", err2);
-				}
+	TwoteUser.findById(req.session.passport.user, function(err, user) {
+	 if(err) {
+	   console.log(err);
+	 } else {
+	 	console.log(user);
+	    req.session.name = user.userName;
+	 	TwoteUser.find({}, null, {sort: {author: -1}},function(err1, data1){
+	 		if(err1){
+	 			console.log("error in looking for users", err1);
+	 		}
+	 		Twote.find({}, null, {sort: {postTime: -1}},  function(err2, data2){
+	 			if(err2){
+	 				console.log("error in looking for users", err2);
+	 			}
+	 			res.render("home", {
+	 				twoteUser: data1,
+	 				twote: data2
+	 			});
+	 		});
+	 	})		
 
-				res.render("home", {
-					twoteUser: data1,
-					twote: data2
-				});
-			});
-		})	
-	}
+	 };
+	});
+	
+		
 };
+
 
 
 index.login = function(req, res){
@@ -85,7 +92,9 @@ index.loginUser = function(req, res){
 index.addTwote = function(req, res){
 
 	var twote = req.body.twote;
-	var authorId = req.session._id;
+	
+	var authorId = req.session.passport.user;
+	// var authorId = req.session._id;
 	console.log("user id", authorId);
 	var author = req.session.name;
 	console.log("author name", authorId);
@@ -109,8 +118,10 @@ index.logout = function(req, res){
 	req.session._id = null;
 	res.send("logout");
 }
+
 index.removeTwote = function(req, res){
-	var authorId = req.session._id;
+	// var authorId = req.session._id;
+	var authorId = req.session.passport.user;
 	console.log("in removing");
 	console.log("authorId", authorId);
 	console.log ("removed id",req.body.removeId)
