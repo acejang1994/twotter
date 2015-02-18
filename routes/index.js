@@ -11,29 +11,37 @@ index.home = function(req, res){
 	console.log("author",req.session.name);
 
 	// checking if user exists
-	// if(req.session._id == null){
-		Twote.find({}, function(err, data){
-		if(err){
-			console.log("error in looking for users", err);
-		}
-		twotes = data;
-		})
-
-		TwoteUser.find({}, function(err, data){
-			if(err){
-				console.log("error in looking for users", err);
+	if(!req.session._id){
+		res.redirect("login");
+	}
+	else{
+		TwoteUser.find({}, null, {sort: {author: -1}},function(err1, data1){
+			if(err1){
+				console.log("error in looking for users", err1);
 			}
-			res.render("home", {
-				twoteUser: data,
-				twote: twotes
+			Twote.find({}, null, {sort: {postTime: -1}},  function(err2, data2){
+				if(err2){
+					console.log("error in looking for users", err2);
+				}
+
+				res.render("home", {
+					twoteUser: data1,
+					twote: data2
+				});
 			});
 		})	
-	// }
-
-	
-	
-
+	}
 };
+
+
+index.login = function(req, res){
+	if (req.session._id) {
+	    res.redirect('home')
+	} else {
+	    res.render('login');
+	}
+}
+
 
 index.loginUser = function(req, res){
 	userName = req.body.name;
@@ -58,7 +66,7 @@ index.loginUser = function(req, res){
 					"_id": req.session._id,
 					"author": req.session.name
 				});
-		
+						
 			});
 		}else{
 			console.log("returning user", twoteUser);
@@ -105,6 +113,7 @@ index.removeTwote = function(req, res){
 	var authorId = req.session._id;
 	console.log("in removing");
 	console.log("authorId", authorId);
+	console.log ("removed id",req.body.removeId)
 
 	Twote.findById(req.body.removeId, function(err, twote) {
 		if (err){
@@ -117,11 +126,12 @@ index.removeTwote = function(req, res){
 				if (err){
 					console.error('Error in removing twote ', err);
 				}
-
+				res.json("removed");
 				return console.log("removed");
+
 			});
 		}
-		return
+		return;
 	});
 
 };
