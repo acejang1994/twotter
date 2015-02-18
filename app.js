@@ -36,7 +36,7 @@ app.post('/addingTwote', index.addTwote);
 app.post('/removingTwote', index.removeTwote);
 app.post('/logout', index.logout);
 
-// mongoose.connect('mongodb://localhost/test');
+// mongoose.connect('mongodb:'mongodb://localhost/test'//localhost/test');
 
 // mongoose.connect('mongodb://localhost/test');
 
