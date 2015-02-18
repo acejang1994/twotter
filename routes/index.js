@@ -113,6 +113,7 @@ index.removeTwote = function(req, res){
 	var authorId = req.session._id;
 	console.log("in removing");
 	console.log("authorId", authorId);
+	console.log ("removed id",req.body.removeId)
 
 	Twote.findById(req.body.removeId, function(err, twote) {
 		if (err){
@@ -125,8 +126,9 @@ index.removeTwote = function(req, res){
 				if (err){
 					console.error('Error in removing twote ', err);
 				}
-
+				res.json("removed");
 				return console.log("removed");
+
 			});
 		}
 		return;

@@ -6,19 +6,28 @@ div#twoteslist{
  
     float:left;
     padding:20px;
-    
   
 }
 div.twotes{
-	padding: 5px;
+	padding: 10px;
+	box-shadow: 2px 2px 2px #888888;
 }
 div.authorNameInTwote{
 	padding: 5px;
+	float: right;
+	
 }
-removeTwote
+div.toggleAuthor{
+	background-color: red;
+}
+
+div.toggleTwote{
+	background-color: red;
+}
 
 button.removeTwote{
 	padding: 5px;
+	/*float: right;*/
 }
 
 div#authorsList{
@@ -31,6 +40,7 @@ div#authorsList{
     padding:20px;
     float: right;
     width: 25%;
+    box-shadow: 5px 5px 5px #888888;
   
 }
 

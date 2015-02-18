@@ -34,36 +34,35 @@ $(".login").submit(function(event){
 
 });
 
-// $("button#toLogin").click(function(event){
-// 	event.preventDefault();
-// 	$.get("/login").done(function(data){
-// 		alert("inside login");
-// 	})
-// 	alert("to login");
-// });
-
 // adding twotes
 
-$("#addingTwote").submit(function(event){
-	event.preventDefault();
-	twote = $("#twoteInput").val();
-	console.log("twote", twote);
+var addingTwote = function(){
+	$("#addingTwote").submit(function(event){
+		event.preventDefault();
+		twote = $("#twoteInput").val();
+		console.log("twote", twote);
 
-	$.post("/addingTwote", {
-		"twote": twote,
-	})
-	.done(function(data, status){
-		console.log("data", data);
-      	console.log("status", status);
-      	$newDiv = $(".twotes").clone().first();
-      	$newDiv.attr("name", data._id);
-      	$newDiv.find("div.authorNameInTwote").html("- " +data.author)
-      	$newDiv.find("span").html(data.message);
-      	// debugger;
-      	$("#twoteslist").prepend($newDiv);
-
+		$.post("/addingTwote", {
+			"twote": twote,
+		})
+		.done(function(data, status){
+			console.log("data", data);
+	      	console.log("status", status);
+	      	$newDiv = $(".twotes").clone().first();
+	      	$newDiv.attr("name", data.authorId);
+	      	$newDiv.find("div.authorNameInTwote").html("- " +data.author)
+	      	$newDiv.find("span").html(data.message);
+	      	
+	      	$("#twoteslist").prepend($newDiv);
+			// debugger
+			$(".removeTwote").unbind();
+			removeTwote();
+		});
 	});
-});
+}
+
+addingTwote();
+
 
 $("#logout").click(function(event){
 	event.preventDefault();
@@ -84,16 +83,20 @@ $("#logout").click(function(event){
 
 
 var removeTwote = function(){
+
 	$("button.removeTwote").click(function(event){
+		$("button.removeTwote").unbind();
 		event.preventDefault();
 		var $twote = $(event.target);
 		var twoteId = $twote.attr('id')
+		debugger;
 		$.post("/removingTwote", {
 			"removeId": twoteId
 		}).done(function(data){
+			// debugger;
 			$twote.parent().remove();
 			console.log("removed!!")
-			debugger;
+			// debugger;
 		});
 		// debugger;
 	});
@@ -104,12 +107,15 @@ removeTwote();
 $(".author").click(function(event){
 	event.preventDefault();
 	authorId = $(this).attr("id");
-	alert(authorId);
+	// alert(authorId);
+	// debugger;
 	 // $(this).css({'color':'red'});
-	 $(this).css('background-color', 'gray');
-	 $.each($('[name='+authorId+']'),function(index, value){
-	 	$(value).css('background-color','red');
+	 $(this).toggleClass("toggleAuthor");
+	 // $.each($('[name='+authorId+']'),function(index, value){
+	 // 	$(value).toggleClass("toggleTwote");
 
-	 });
+	 // });
+	 $('[name='+authorId+']').toggleClass("toggleTwote");
 	 // debugger;
 });
+
