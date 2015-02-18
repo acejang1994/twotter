@@ -38,6 +38,8 @@ app.post('/logout', index.logout);
 
 mongoose.connect('mongodb://localhost/test');
 
+// mongoose.connect('mongodb://localhost/test');
+
 app.listen(PORT, function() {
   console.log("Application running on port:", PORT);
 });
