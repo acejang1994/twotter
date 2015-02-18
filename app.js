@@ -24,8 +24,8 @@ app.use(session({
 }));
 
 var PORT = process.env.PORT || 3000;
-var mongoURI = process.env.MONGOURI;
-// mongoose.connect(mongoURI);
+var mongoURI = process.env.MONGOURI || 'mongodb://localhost/test';
+mongoose.connect(mongoURI);
 
 app.get('/', index.login);
 app.get('/login', index.login);
