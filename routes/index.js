@@ -107,7 +107,7 @@ index.addTwote = function(req, res){
 index.logout = function(req, res){
 	req.session.name = null;
 	req.session._id = null;
-	res.send({redirect:'/login'});
+	res.send("logout");
 }
 index.removeTwote = function(req, res){
 	var authorId = req.session._id;

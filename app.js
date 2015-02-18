@@ -25,7 +25,7 @@ app.use(session({
 
 var PORT = process.env.PORT || 3000;
 var mongoURI = process.env.MONGOURI;
-mongoose.connect(mongoURI);
+// mongoose.connect(mongoURI);
 
 app.get('/', index.login);
 app.get('/login', index.login);
@@ -36,7 +36,7 @@ app.post('/addingTwote', index.addTwote);
 app.post('/removingTwote', index.removeTwote);
 app.post('/logout', index.logout);
 
-// mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/test');
 
 app.listen(PORT, function() {
   console.log("Application running on port:", PORT);
