@@ -9,9 +9,9 @@ var twoteUser = require('./models/twoteUser.js');
 //   callbackURL: config.facebook.callbackURL
 // },
 module.exports = passport.use(new FacebookStrategy({
-  clientID: process.env.facebook.clientID,
+  clientID: process.env.clientID,
   clientSecret: process.env.clientSecret,
-  callbackURL: process.env.callbackURL
+  callbackURL: "https://evening-harbor-1911.herokuapp.com/auth/facebook/callback"
 },
 
 
