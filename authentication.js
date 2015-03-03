@@ -1,13 +1,19 @@
 var passport = require('passport')
 var FacebookStrategy = require('passport-facebook').Strategy;
 var twoteUser = require('./models/twoteUser.js');
-var config = require('./oauth.js')
+// var config = require('./oauth.js')
 
+// module.exports = passport.use(new FacebookStrategy({
+//   clientID: config.facebook.clientID,
+//   clientSecret: config.facebook.clientSecret,
+//   callbackURL: config.facebook.callbackURL
+// },
 module.exports = passport.use(new FacebookStrategy({
-  clientID: config.facebook.clientID,
-  clientSecret: config.facebook.clientSecret,
-  callbackURL: config.facebook.callbackURL
+  clientID: process.env.facebook.clientID,
+  clientSecret: process.env.clientSecret,
+  callbackURL: process.env.callbackURL
 },
+
 
 function(accessToken, refreshToken, profile, done) {
 twoteUser.findOne({ oauthID: profile.id }, function(err, user) {
